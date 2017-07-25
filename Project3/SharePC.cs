@@ -18,7 +18,8 @@ namespace SharePc
 
         private static bool isSessionAlive = false;
 
-        private static string controlString = null;
+        private static String controlString = null;
+        private static String viewString = null; 
 
         public bool IsSessionAlive {
             get { return isSessionAlive; }
@@ -219,7 +220,8 @@ namespace SharePc
 
                 } else {
 
-                    throw new SessionExistsException();//"Without disconnecting,you can not create another one");
+                    connectWithControl();
+                    //throw new SessionExistsException();//"Without disconnecting,you can not create another one");
                 }
             }
             
@@ -238,7 +240,8 @@ namespace SharePc
             }
             else
             {
-                throw new SessionExistsException();
+                connectWithView();
+                //throw new SessionExistsException();
             }
         }
 
@@ -282,7 +285,7 @@ namespace SharePc
             return countViewClient;
         }
 
-        public string GetControlString() {
+        public string GetControlString(int clientNo) {
 
             if ( null != controlString )
                 return controlString;
@@ -291,12 +294,12 @@ namespace SharePc
 
                 if ( isSessionAlive ) {
 
-                    return getInvitationString( 5 ); //the max no of client 
+                    return getInvitationString( clientNo ); //the max no of client 
                 }
 
                 this.disconnect();
                 this.shareControl();
-                return getInvitationString( 5 ); //the max no of client 
+                return getInvitationString( clientNo ); //the max no of client 
 
             } catch ( Exception e ) {
 
@@ -305,6 +308,33 @@ namespace SharePc
             }
         }
 
+        public string GetViewString()
+        {
+
+            if (null != viewString)
+                return viewString;
+
+            try
+            {
+
+                if (isSessionAlive)
+                {
+
+                    return getInvitationString(5); //the max no of client 
+                }
+
+                this.disconnect();
+                this.shareView();
+                return getInvitationString(5); //the max no of client 
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+
+            }
+        }
 
     }
 
