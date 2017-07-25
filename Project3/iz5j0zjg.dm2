@@ -18,8 +18,7 @@ namespace SharePc
 
         private static bool isSessionAlive = false;
 
-        private static String controlString = null;
-        private static String viewString = null; 
+        private static string controlString = null;
 
         public bool IsSessionAlive {
             get { return isSessionAlive; }
@@ -141,7 +140,6 @@ namespace SharePc
 
                     if ( null == currentSession )
                         return;
-
                     ReleaseEventHandlers();
                     currentSession.Close();
                     currentSession = null;
@@ -228,8 +226,7 @@ namespace SharePc
 
                 } else {
 
-                    connectWithControl();
-                    //throw new SessionExistsException();//"Without disconnecting,you can not create another one");
+                    throw new SessionExistsException();//"Without disconnecting,you can not create another one");
                 }
             }
             
@@ -248,8 +245,7 @@ namespace SharePc
             }
             else
             {
-                connectWithView();
-                //throw new SessionExistsException();
+                throw new SessionExistsException();
             }
         }
 
@@ -293,7 +289,7 @@ namespace SharePc
             return countViewClient;
         }
 
-        public string GetControlString(int clientNo) {
+        public string GetControlString() {
 
             if ( null != controlString )
                 return controlString;
@@ -302,12 +298,12 @@ namespace SharePc
 
                 if ( isSessionAlive ) {
 
-                    return getInvitationString( clientNo ); //the max no of client 
+                    return getInvitationString( 5 ); //the max no of client 
                 }
 
                 this.disconnect();
                 this.shareControl();
-                return getInvitationString( clientNo ); //the max no of client 
+                return getInvitationString( 5 ); //the max no of client 
 
             } catch ( Exception e ) {
 
@@ -316,33 +312,6 @@ namespace SharePc
             }
         }
 
-        public string GetViewString()
-        {
-
-            if (null != viewString)
-                return viewString;
-
-            try
-            {
-
-                if (isSessionAlive)
-                {
-
-                    return getInvitationString(5); //the max no of client 
-                }
-
-                this.disconnect();
-                this.shareView();
-                return getInvitationString(5); //the max no of client 
-
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-
-            }
-        }
 
     }
 
