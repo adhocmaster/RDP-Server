@@ -63,9 +63,13 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup />
+<<<<<<< HEAD
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+=======
+  <PropertyGroup />
+>>>>>>> 80b45afc730a2205466d25faa43006f0bca31c42
   <ItemGroup>
     <None Include="SharePc_TemporaryKey.pfx" />
   </ItemGroup>

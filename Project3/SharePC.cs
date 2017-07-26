@@ -295,8 +295,6 @@ namespace SharePc
 
         public string GetControlString(int clientNo) {
 
-            if ( null != controlString )
-                return controlString;
 
             try {
 
